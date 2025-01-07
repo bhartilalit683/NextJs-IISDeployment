@@ -1,21 +1,29 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: 'notagent' # Replace with your self-hosted pool name
+  demands:
+  - npm # Optional: Add capabilities that the agent must support
 
 steps:
+# Step 1: Install Node.js
 - task: NodeTool@0
   inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+    versionSpec: '16.x'
+  displayName: 'Use Node.js 16.x'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+# Step 2: Install Dependencies
+- script: npm install
+  displayName: 'Install Dependencies'
+
+# Step 3: Build Application
+- script: npm run build
+  displayName: 'Build Application'
+
+# Step 4: Publish Artifacts
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/.next'
+    artifact: 'drop'
+  displayName: 'Publish Build Artifacts'
