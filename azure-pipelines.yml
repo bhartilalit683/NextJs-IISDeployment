@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'notagent' # Replace with your self-hosted pool name
+  name: 'windows' # Replace with your self-hosted pool name
   demands:
   - npm # Optional: Add capabilities that the agent must support
 
