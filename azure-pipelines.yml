@@ -4,7 +4,7 @@ trigger:
       - main  # Change to the branch you're using for production deployment
 
 pool:
-  vmImage: 'windows'  # You can change this to use the self-hosted agent
+  name: 'windows'  # You can change this to use the self-hosted agent
 
 variables:
   buildConfiguration: 'Release'
